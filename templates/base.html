@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Demo{% endblock %}</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand">django-solr-poc</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="/">Search</a></li>
+                            <li><a href="https://github.com/broderboy/django-solr-poc">Github</a></li>
+                        </ul>
+						<ul class="nav">
+						{% if request.user.is_authenticated %}
+							<li> <a href="/accounts/logout/" class="pull-right">Logout</a></li>
+                            <li> <a href="{% url 'user_profile' slug=user.username %}"><b>{{ user.profile.user }} </b></a> </li>
+                            <li> <a href="{% url 'client_profile' slug=user.username %}"><b>{{ user.profile.user }}| Client</b></a> </li>
+							{% if request.user.profile.account_verified %} (verified) {% else %} (unverified) 
+							{% endif %}
+						{% else %}
+							<li> <a href="/accounts/login/" class="pull-right">Login</a></li>
+							<li> <a href="/accounts/signup/" class="pull-right">Sign Up</a></li>
+						{% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="hero-unit">
+                <h1>{% block hero_text %}Demo{% endblock %}</h1>
+                {% block header %}{% endblock %}
+            </div>
+            <div class="row">
+                {% block content %}{% endblock %}
+            </div>
+            <footer>
+                <p><p>&copy; Viva Eberto 2014</p></p>
+            </footer>
+        </div> <!-- /container -->
+        
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/lib/bootstrap.min.js"></script>
+        <script src="/static/js/lib/bootstrap-collapse.js"></script>
+        <script src="/static/js/base.js"></script>
+    </body>
+</html>

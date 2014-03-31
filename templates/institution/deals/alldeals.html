@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block hero_text %}<h1>All Deals</h1>{% endblock %}
+
+{% block content %}
+
+{% if latest_deal_list %}
+    <ul>
+    {% for deal in latest_deal_list %}
+        <li><a href="{% url 'deals:deal_detail' deal.slug %}">{{ deal.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No deals are available.</p>
+{% endif %}
+
+
+<div class="row">
+	{% if latest_deal_list %}
+	{% for deal in latest_deal_list %}
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img data-src="{{ deal.thumbnail.url }}" alt="...">
+      <div class="caption">
+        <h3>{{ deal.title }}</h3>
+        <p>{{ deal.header }}</p>
+        <p><a href="{% url 'deals:deal_detail' deal.slug %}" class="btn btn-primary" role="button">More Info</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+    <p>No deals are available.</p>
+{% endif %}
+</div>
+
+
+{% endblock %}

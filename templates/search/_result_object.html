@@ -1,0 +1,23 @@
+{% with obj=result.object %}
+<div class="accordion-group">
+<div class="accordion-heading"><a class="accordion-toggle" href="#collapse_{{ obj.id }}" data-toggle="collapse" data-parent="#accordion2">
+ {{ obj.name }}
+ </a>
+<div style="padding: 8px 15px;">
+<h4><a href="{% url 'institution:detail' obj.id %}">{{ obj.name_institution }}</a></h4>
+
+<p> {{ obj.short_description }} </p>
+ 
+<h5> {{ obj.type_institution }} </h5>
+
+<h5> {{ obj.location }} </h5>
+ 
+</div>
+</div>
+
+<div class="accordion-inner">
+Contact: <a href="mailto:{{ obj.get_contact_email }}">{{ obj.get_contact_email }}</a>
+</div>
+</div>
+<br>
+{% endwith %}

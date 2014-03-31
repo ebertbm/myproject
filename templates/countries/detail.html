@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block hero_text %}<h1>{{ country.title }}</h1>{% endblock %}
+
+{% block content %}
+<div class="span12">
+<h2>{{ country.title }}</h2>
+
+
+<h2>{{ country.short_description }}</h2>
+
+<img src="{{ country.thumbnail.url }}" alt="" />
+
+<p> <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'contacts:enquiry_country_form' country.id %}">Contact</a></button> </p>
+
+<p>{{ country.content }}</p>
+
+</div>
+
+{% endblock %}

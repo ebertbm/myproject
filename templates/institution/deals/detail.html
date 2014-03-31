@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block hero_text %}<h1>{{ deal.title }}</h1>{% endblock %}
+
+{% block content %}
+<div class="span12">
+<h2>{{ deal.tile }}</h2>
+
+
+<h2>{{ deal.header }}</h2>
+
+<img src="{{ deal.thumbnail.url }}" alt="" />
+
+<p>{{ deal.content }}</p>
+
+</div>
+
+{% endblock %}

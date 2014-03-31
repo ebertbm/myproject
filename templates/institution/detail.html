@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block hero_text %}<h1>{{ institution.name_institution }}</h1>{% endblock %}
+
+{% block content %}
+<div class="span12">
+<h2>{{ institution.name_institution }}</h2>
+
+<address>
+  <strong>Contact Information:</strong><br>
+  {{ institution.address }}<br>
+  {{ institution.location }}<br>
+  <abbr title="Phone">P:</abbr> {{ institution.phone }}
+</address>
+
+<address>
+<a href="mailto:{{ institution.get_contact_email }}">{{ institution.contact_email }}</a>
+</address>
+
+<p> <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'contacts:enquiry_form' institution.id %}">Contact</a></button> </p>
+
+<p>{{ institution.content }}</p>
+
+</div>
+
+{% endblock %}

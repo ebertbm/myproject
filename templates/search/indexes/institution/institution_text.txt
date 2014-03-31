@@ -1,0 +1,16 @@
+{{ object.location }}
+{{ object.contact_email }}
+{{ object.get_type_institution_display }}
+
+
+{% for area in object.level_study.all %}
+	{{ area.name_level }}
+{% endfor %}
+
+{% for area in object.course_language.all %}
+	{{ area.name_language }}
+{% endfor %}
+
+{% for area in object.study_area.all %}
+	{{ area.name_area }}
+{% endfor %}
