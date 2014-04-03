@@ -15,14 +15,38 @@
   {% for q in institutions %}
     <h5><a href="{% url 'client_edit_institution' q.id %}">{{ q.name_institution }}</a></h5>
   {% endfor %} 
-<br><br><br>
+<br><br>
 
  <strong>Your Profile:</strong><br>
 
-  <button type="button" class="btn btn-primary" ><a href="{% url 'client_edit_profile' %}">Edit Profile</a></button>
+  <a class="btn btn-default" href="{% url 'client_edit_profile' %}" role="button">Edit Profile</a></button>
 <br><br>
 
 <a class="btn btn-default" href="{% url 'account_change_password' %}" role="button">Change your password</a>
+
+<br><br>
+
+<a class="btn btn-default" href="{% url 'account_change_password' %}" role="button">View Stats</a>
+
+
+
+<h2>Leads</h2>
+<div class="table-responsive" >
+	<table class="table table-bordered">
+  		<tbody> 
+ 		{% for en in enquiries %} 
+ 		<tr> 
+ 			<td> 
+				 <a>{{ en.email }} </a> 
+			</td> 
+			<td>{{ en.first_name }}</td> 
+			<td>{{ en.last_name }}</td> 
+			<td>{{ en.content }}</td> 
+		</tr> 
+		{% endfor %} 
+	</tbody> 
+</table>
+</div>
 
 </div>
 

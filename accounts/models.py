@@ -42,7 +42,11 @@ class UserProfile(models.Model):
         if self.user.email:
             return self.user.email
 
-	def account_verified(self):
+    def get_user_id(self):
+        return self.user
+
+
+    def account_verified(self):
 		if self.user.is_authenticated:
 			result = EmailAddress.objects.filter(email=self.user.email)
 			if len(result):

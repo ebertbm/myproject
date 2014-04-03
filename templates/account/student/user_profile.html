@@ -5,12 +5,30 @@
 <div class="span12">
 <h2>{{ user.email }}</h2>
 
-<address>
-  <strong>Contact Information:</strong><br>
   <p>{{ user.profile.about_me }}</p>
 
-  <button type="button" class="btn btn-primary" ><a href="{% url 'edit_profile' %}">Primary</a></button>
+  <a class="btn btn-default"  href="{% url 'edit_profile' %}" role="button">Edit Profile</a>
 
+  <a class="btn btn-default" href="{% url 'account_change_password' %}" role="button">Change your password</a>
+
+
+<h2>Message Historial</h2>
+<div class="table-responsive" >
+	<table class="table table-bordered">
+  		<tbody> 
+ 		{% for en in enquiries %} 
+ 		<tr> 
+ 			<td> 
+				 <a>{{ en.email }} </a> 
+			</td> 
+			<td>{{ en.first_name }}</td> 
+			<td>{{ en.last_name }}</td> 
+			<td>{{ en.content }}</td> 
+		</tr> 
+		{% endfor %} 
+	</tbody> 
+</table>
+</div>
 </div>
 
 {% endblock %}
