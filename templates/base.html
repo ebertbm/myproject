@@ -23,7 +23,7 @@
 						{% if request.user.is_authenticated %}
 							<li> <a href="/accounts/logout/" class="pull-right">Logout</a></li>
                             <li> <a href="{% url 'user_profile' slug=user.username %}"><b>{{ user.profile.user }} </b></a> </li>
-                            <li> <a href="{% url 'client_profile' slug=user.username %}"><b>{{ user.profile.user }}| Client</b></a> </li>
+                            
 							{% if request.user.profile.account_verified %} (verified) {% else %} (unverified) 
 							{% endif %}
 						{% else %}

@@ -14,43 +14,31 @@ from requestforms.models import Enquiry
 from .forms import UserProfileForm, ClientProfileForm, InstitutionEditForm
 
 
-#def index(request):
-#   return render_to_response("index.html", RequestContext(request))
 
 
-""""
-class accounts_view(DetailView, request):
-    if request.user.is_client(): # <-- check with your logic, is_student() is a stub
-        return InstitutionProfileDetailView.as_view()
-    else:
-        return UserProfileDetailView.as_view()
-    #elif request.user.is_institute():
-"""""
-"""
-def account_view():
-    client = self.is_client()
-    if client:
-        return "account/institution_profile.html"
-    else:
-        return "account/user_profile.html"
-"""
-"""
 def accounts_view(request, slug):
     #currentuser= request.user.id
-    clients = ClientProfile.objects.filter(user=request.user)
-    if clients is None:
-        return #UserProfileDetailView.as_view() 
-    else:
-        return #InstitutionProfileDetailView.as_view()
-"""
+    try:
+        clients = ClientProfile.objects.get(user=request.user)
+        return ClientProfileDetailView(request, slug)
+    except ClientProfile.DoesNotExist:
+        clients = None
+        clients
+        return UserProfileDetailView(request, slug)
 
 
-class UserProfileDetailView(DetailView):
-    model = User
-    slug_field = "username"
-    template_name = "account/student/user_profile.html"
 
-    def get_object(self, queryset=None):
+
+def UserProfileDetailView(request, slug):
+    user = get_object_or_404(UserProfile, user=request.user)
+    enquiries = Enquiry.objects.filter(email=user.user.email)
+
+    return render_to_response("account/student/user_profile.html", locals(), 
+        context_instance=RequestContext(request))
+
+"""    
+slug_field = "username"
+def get_object(self, queryset=None):
         user = super(UserProfileDetailView, self).get_object(queryset)
         UserProfile.objects.get_or_create(user=user)
         return user
@@ -59,7 +47,7 @@ class UserProfileDetailView(DetailView):
         context = super(UserProfileDetailView, self).get_context_data(**kwargs)
         context['enquiries'] = Enquiry.objects.filter(email=self.request.user.email)
         return context
-
+"""
 
 
 class UserProfileEditView(UpdateView):
@@ -74,15 +62,11 @@ class UserProfileEditView(UpdateView):
         return reverse("user_profile", kwargs={'slug': self.request.user})
 
 
-#def get_institution():
-#   institutions = Institution.objects.filter(client=self.request.user)
-
 
 def ClientProfileDetailView(request, slug):
 
     client = get_object_or_404(ClientProfile, user=request.user)
     institutions = Institution.objects.filter(client=client.id)
-    print client.id
     enquiries = Enquiry.objects.filter(client=client)
 
     return render_to_response("account/client/client_profile.html", locals(), 
