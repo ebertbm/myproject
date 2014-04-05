@@ -12,8 +12,6 @@ sqs = SearchQuerySet().facet('type_institution').facet('levels').facet('language
 
 urlpatterns = patterns('haystack.views', 
 	#url(r'^$', views.index, name='index'),
-	url(r'^institutions/(?P<pk>\d+)/$', views.DetailView.as_view(), name='detail'),
 	url(r'^$', FacetedSearchView(form_class=FacetedSearchForm, searchqueryset=sqs), name='haystack_search'),
+	url(r'^/(?P<pk>\d+)/$', views.DetailView.as_view(), name='detail'),
 )
-
-

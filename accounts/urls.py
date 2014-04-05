@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required as auth #Prevent unlog
 urlpatterns = patterns('',
 	# url(r'^user/(?P<slug>\w+)/$', accounts_view.as_view(), name='user_profile'),
      #url(r'^user/(?P<slug>\w+)/$', UserProfileDetailView.as_view(), name='user_profile'),
-     url(r'^user/(?P<slug>\w+)/$', views.accounts_view, name='user_profile'),
+     url(r'^user/(?P<slug>\w+)/$', auth(views.accounts_view), name='user_profile'),
      url(r'^editprofile/$', auth(UserProfileEditView.as_view()), name="edit_profile"),
 
      #url(r'^client/(?P<slug>\w+)/$', views.ClientProfileDetailView, name='client_profile'),

@@ -1,4 +1,3 @@
-from django.views.generic import DetailView
 from django.contrib.auth import get_user_model
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse
@@ -15,25 +14,22 @@ from .forms import UserProfileForm, ClientProfileForm, InstitutionEditForm
 
 
 
-
 def accounts_view(request, slug):
-    #currentuser= request.user.id
-    try:
-        clients = ClientProfile.objects.get(user=request.user)
-        return ClientProfileDetailView(request, slug)
-    except ClientProfile.DoesNotExist:
-        clients = None
-        clients
+    clients = ClientProfile.objects.filter(user=request.user)
+
+    if clients:
+        return ClientProfileDetailView(request, slug) 
+    else:
         return UserProfileDetailView(request, slug)
-
-
+         
 
 
 def UserProfileDetailView(request, slug):
-    user = get_object_or_404(UserProfile, user=request.user)
-    enquiries = Enquiry.objects.filter(email=user.user.email)
+    student = get_object_or_404(UserProfile, user=request.user)
+    enquiries = Enquiry.objects.filter(student=student)
 
-    return render_to_response("account/student/user_profile.html", locals(), 
+
+    return render_to_response("account/student/student_profile.html", locals(), 
         context_instance=RequestContext(request))
 
 """    
