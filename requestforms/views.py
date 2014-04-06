@@ -22,6 +22,9 @@ def enquiryInstitution(request, institution_id):
             if form.is_valid():
                 contact = form.save(commit=False)
                 contact.client = institution.client
+                contact.enquiry_type = '01'
+                contact.institution_interested = institution
+                contact.country_interested = institution.location
                 contact.save()
 
                 return  render_to_response('forms/success.html', 

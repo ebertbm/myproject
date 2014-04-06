@@ -3,17 +3,6 @@
 
 {% block content %}
 
-{% if latest_deal_list %}
-    <ul>
-    {% for country in latest_deal_list %}
-        <li><a href="{% url 'countries:country_detail' country.slug %}">{{ country.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No Countries are available.</p>
-{% endif %}
-
-
 <div class="row">
 	{% if latest_deal_list %}
 	{% for country in latest_deal_list %}
@@ -29,7 +18,7 @@
   </div>
   {% endfor %}
   {% else %}
-    <p>No deals are available.</p>
+    <p>No Countries are available.</p>
 {% endif %}
 </div>
 

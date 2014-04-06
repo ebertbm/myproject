@@ -29,7 +29,7 @@ class EnquiryForm(forms.ModelForm):
 
 	class Meta:
 		model = Enquiry
-		exclude = ('student', 'client')
+		exclude = ('student', 'client', 'institution_interested', 'country_interested', 'enquiry_type')
 
 
 

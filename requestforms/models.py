@@ -22,7 +22,12 @@ PLANNED_TIME = (
 )
 
 
+"""""""""""""""""""""
+1. Add more info: Schollarships, visas, fees..
+2. Change content for comment
+2. Country, State, City
 
+"""""""""""""""""""""
 
 class Enquiry(models.Model):
 	#Crossed data

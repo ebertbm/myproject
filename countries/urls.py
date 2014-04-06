@@ -4,7 +4,7 @@ from countries import views
 
 
 urlpatterns = patterns('', 
-	url(r'^$', views.CountriesView.as_view(), name='index'),
+	url(r'^$', views.CountriesView.as_view(), name='allcountries'),
 	url(r'^(?P<slug>[\w\-]+)/$', views.DetailView.as_view(), name='country_detail'),
 )
 
