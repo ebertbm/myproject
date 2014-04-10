@@ -7,7 +7,6 @@ from django.template import RequestContext
 from countries.models import Country
 from variables.models import Location
 
-from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -43,7 +42,7 @@ def enquiryCountry(request, country_id):
         location_id = country.location.id
 
         if request.POST:
-            form = EnquiryCountryForm(location_id.id, request.POST)
+            form = EnquiryCountryForm(location_id, request.POST)
             if form.is_valid():
                 contact = form.save(commit=False)
                 contact.country_interested = country.location
