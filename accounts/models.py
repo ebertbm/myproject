@@ -23,6 +23,8 @@ class UserProfile(models.Model):
     zipcode = models.CharField(max_length=56, blank=True)
     phone = models.CharField(max_length=56, blank=True)
 
+
+
     #Interested
     countries_interested = models.ManyToManyField(Location, blank=True, related_name='countries interested')
     areas_interested = models.ManyToManyField(StudyArea, blank=True)
@@ -59,6 +61,7 @@ User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 
 
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 class ProductOrder(models.Model):
     name = models.CharField(max_length=114, unique=True)
@@ -66,7 +69,6 @@ class ProductOrder(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
 
 class ClientProfile(models.Model):

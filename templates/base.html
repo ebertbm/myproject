@@ -7,38 +7,8 @@
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     </head>
-    <body>
-  <!--      <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand">EbertCorp</a>
-                    <div class="nav-collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="/">Search</a></li>
-                            <li><a href="https://github.com/broderboy/django-solr-poc">Github</a></li>
-                        </ul>
-						<ul class="nav">
-						{% if request.user.is_authenticated %}
-							<li> <a href="/accounts/logout/" class="pull-right">Logout</a></li>
-                            <li> <a href="{% url 'user_profile' slug=user.username %}"><b>{{ user.profile.user }} </b></a> </li>
-                            
-							{% if request.user.profile.account_verified %} (verified) {% else %} (unverified) 
-							{% endif %}
-						{% else %}
-							<li> <a href="/accounts/login/" class="pull-right">Login</a></li>
-							<li> <a href="/accounts/signup/" class="pull-right">Sign Up</a></li>
-						{% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
--->
+
+<body ng-app="{% block ng_app %}{% endblock %}">
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
@@ -75,7 +45,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated %}
-        <li> <a href="{% url 'user_profile' slug=user.username %}"><b>{{ user.profile.user }} </b></a> </li>
+        <li> <a href="{% url 'user_profile' %}"><b>{{ user.profile.user }} </b></a> </li>
         <li> <a href="/accounts/logout/" class="pull-right">Logout</a></li>
         <!--{% if request.user.profile.account_verified %}  {% else %} (u) 
         {% endif %} -->
@@ -97,8 +67,14 @@
   </div>
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="/static/js/lib/angular.js"></script>
+        {% block extra_javascript %}{% endblock extra_javascript %}
         <!--<script src="/static/js/lib/bootstrap.min.js"></script>
         <script src="/static/js/lib/bootstrap-collapse.js"></script>
         <script src="/static/js/base.js"></script>-->
+
+
+
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
     </body>
 </html>

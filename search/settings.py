@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
     'imagekit',
+    'rest_framework',
 	
 	#OWN APPS
     'institution',
