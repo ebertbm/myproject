@@ -57,6 +57,7 @@ def StudentEnquiriesView(request):
         context_instance=RequestContext(request))
 
 def StudentEditProfileView(request):
+    print "HE IS HEREEE!!"
     return render_to_response("account/student/student_edit_profile.html", locals(), 
         context_instance=RequestContext(request))
 

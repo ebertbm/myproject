@@ -4,7 +4,6 @@
 {% block ng_app %}account.student{% endblock %}
 
 {% block content %}
-<div ng-controller="EnquiryController">
 	<h2>{{ user.email }}</h2>
 
 	<p>[[ student.about_me ]]</p>
@@ -23,9 +22,9 @@
       <div class="pa-sidebar well well-small">
         <ul class="nav nav-list">
           <li class="nav-header">Settings</li>
-          <li><a ui-sref="settings" >Profile</a></li>
-          <li><a ui-sref="settings.details" >User Details</a></li>          
-          <li><a ui-sref="settings.quotes" >User Quotes</a></li>
+          <li><a href="#/home/" >Home</a></li>
+          <li><a href="#/editprofile/" >Student Profile</a></li>          
+          <li><a href="#/messages/" >Historical Messages</a></li>
         </ul>
        <hr>
      </div>
@@ -55,12 +54,10 @@
 			</tbody> 
 		</table>
 	</div>
-</div>
 
 {% endblock %}
 {% block extra_javascript %}
 <script src="/static/js/apps/accounts/controller.js"></script>
-<script src="/static/js/lib/angular-route.js"></script>
 <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
 
 {% endblock extra_javascript %}
