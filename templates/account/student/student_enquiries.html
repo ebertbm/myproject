@@ -1,7 +1,36 @@
 
-<h2>{{ user.username }}'s Profile</h2>
-<h3>{{user.name}}\'s Quotes</h3>
+<h2>{{ user.email }}'s Profile</h2>
 <hr>
-<div><label>Quotes</label><textarea type="text"></textarea></div>
- 
-<button class="btn" ng-click="done()">Save</button>
+<h2>Message Historial</h2>
+<div class="table-responsive" >
+	<table class="table table-bordered">
+		<tbody> 
+					<tr ng-repeat="en in enquiries"> 
+						<td>[[ en.id ]]</td> 
+						<td>[[ en.first_name ]]</td> 
+						<td>[[ en.last_name ]]</td> 
+						<td>[[ en.content ]]</td>
+						<td>[[ en.created | date:'medium' ]]</td> 
+					</tr> 
+		</tbody> 
+	</table>
+</div>
+
+
+
+<h1>Table with sorting</h1>
+	
+    <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+    <p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
+
+
+        <table ng-table="tableParams" class="table">
+            <tr ng-repeat="user in $data">
+                <td data-title="'Name'" sortable="'name'">
+                    {{user.name}}
+                </td>
+                <td data-title="'Age'" sortable="'age'">
+                    {{user.age}}
+                </td>
+            </tr>
+        </table>
