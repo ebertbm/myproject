@@ -8,8 +8,6 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.template import RequestContext
 
-from django.contrib.auth.models import User
-
 from accounts.models import UserProfile, ClientProfile
 from institution.models import Institution
 from requestforms.models import Enquiry
@@ -57,7 +55,6 @@ def StudentEnquiriesView(request):
         context_instance=RequestContext(request))
 
 def StudentEditProfileView(request):
-    print "HE IS HEREEE!!"
     return render_to_response("account/student/student_edit_profile.html", locals(), 
         context_instance=RequestContext(request))
 
@@ -81,7 +78,7 @@ def get_object(self, queryset=None):
 class UserProfileEditView(UpdateView):
     model = get_user_model()
     form_class = UserProfileForm
-    template_name = "account/student/edit_profile.html"
+    template_name = "account/student/student_edit_profile.html"
 
     def get_object(self, queryset=None):
         return UserProfile.objects.get_or_create(user=self.request.user)[0]

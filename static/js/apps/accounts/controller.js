@@ -1,4 +1,3 @@
-
 angular.module('account.student', ['ui.router', 'ngTable'])
 .config(function ($stateProvider, $interpolateProvider, $urlRouterProvider) {
       //allow django templates and singular to co-exist
@@ -27,9 +26,16 @@ angular.module('account.student', ['ui.router', 'ngTable'])
         controller: 'DemoCtrl'
       };
 
+      var changePassword = {
+        name: 'changePassword',
+        url: '/password',
+        templateUrl: '../password/change/'
+        };
+
 
       $stateProvider
       .state(studentProfile)
+      .state(changePassword)
       .state(studentEnquiries);
     })
 
@@ -52,24 +58,7 @@ angular.module('account.student', ['ui.router', 'ngTable'])
 
 })
 
-.controller('DemoCtrl', function($scope, $filter, ngTableParams) {
-            var data = [{name: "Moroni", age: 50},
-                        {name: "Tiancum", age: 43},
-                        {name: "Jacob", age: 27},
-                        {name: "Nephi", age: 29},
-                        {name: "Enos", age: 34},
-                        {name: "Tiancum", age: 43},
-                        {name: "Jacob", age: 27},
-                        {name: "Nephi", age: 29},
-                        {name: "Enos", age: 34},
-                        {name: "Tiancum", age: 43},
-                        {name: "Jacob", age: 27},
-                        {name: "Nephi", age: 29},
-                        {name: "Enos", age: 34},
-                        {name: "Tiancum", age: 43},
-                        {name: "Jacob", age: 27},
-                        {name: "Nephi", age: 29},
-                        {name: "Enos", age: 34}];
+.controller('DemoCtrl', function($scope, $filter, $http, ngTableParams) {
 
             $scope.tableParams = new ngTableParams({
                 page: 1,            // show first page
@@ -78,14 +67,18 @@ angular.module('account.student', ['ui.router', 'ngTable'])
                     name: 'asc'     // initial sorting
                 }
             }, {
-                total: data.length, // length of data
+               // total: data.length, // length of data
                 getData: function($defer, params) {
                     // use build-in angular filter
+                    $http.get('enquiries/api/').success(function(data) {
+                      console.log(data[0].institution_interested);
+                      console.log(data[0].institution_interested[0]);
                     var orderedData = params.sorting() ?
                                         $filter('orderBy')(data, params.orderBy()) :
                                         data;
 
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                });
                 }
             });
 });

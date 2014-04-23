@@ -16,7 +16,7 @@ urlpatterns = patterns('',
      url(r'^user/enquiries/api/$', auth(views.StudentEnquiriesAPI), name='student-enquiries-apo'),
 
      url(r'^user/student_enquiries.html', auth(views.StudentEnquiriesView), name='student-enquiries'),
-     url(r'^user/student_edit_profile.html', auth(views.StudentEditProfileView), name='student-edit-profile'),
+     url(r'^user/student_edit_profile.html', auth(UserProfileEditView.as_view()), name='student-edit-profile'),
      url(r'^user/enquiries/student_change_password.html', auth(views.StudentChangePasswordView), name='student-change-password'),
 
 
@@ -24,7 +24,7 @@ urlpatterns = patterns('',
 
 
 
-     url(r'^editprofile/$', auth(UserProfileEditView.as_view()), name="edit_profile"),
+     #url(r'^editprofile/$', auth(UserProfileEditView.as_view()), name="edit_profile"),
 
      #CLIENT ACCOUNT URLS
      url(r'^editaccount/$', auth(ClientProfileEditView.as_view()), name="client_edit_profile"),
