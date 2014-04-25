@@ -5,6 +5,26 @@
 <div class="span12">
 <h2>{{ user.email }}</h2>
 
+
+  <div class="container">
+  	<div id="account.client">
+    <h4>
+        A brief introduction to <strong class="text-danger">ui-router</strong>
+        <span class="text-muted">(v0.2.0)</span>
+    </h4>
+    <div>
+        <ul class="nav nav-pills">
+            <li><a href="#/home">Home</a></li>
+            <li><a href="#/editprofile">Edit User Profile</a></li>
+            <li><a href="#/institution">My Institution</a></li>
+        </ul>
+    </div>
+    <div ui-view></div>
+</div>
+  </div>
+
+
+
 <address>
   <strong>Contact Informations:</strong><br>
   <p>{{ client.address }}</p>
@@ -51,3 +71,18 @@
 </div>
 
 {% endblock %}
+
+
+{% block extra_javascript %}
+<script src="/static/js/apps/accounts/client/app.js"></script>
+<script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+<script src="/static/js/lib/ng-table.js"></script>
+ 
+<link rel="stylesheet" href="/static/css/ng-table.css">
+
+<script>
+  angular.element(document).ready(function() {
+  	angular.bootstrap(document.getElementById('account.client'), ['account.client']);
+     });
+</script>
+{% endblock extra_javascript %}

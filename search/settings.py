@@ -38,6 +38,7 @@ INSTALLED_APPS = (
 	'allauth.socialaccount.providers.facebook',
     'imagekit',
     'rest_framework',
+    'crispy_forms',
 	
 	#OWN APPS
     'institution',
@@ -135,7 +136,8 @@ AUTHENTICATION_BACKENDS = (
 
 
 
-
+#CRISPY FORMS TEMPLATE
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 # Internationalization

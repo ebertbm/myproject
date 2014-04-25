@@ -2,19 +2,18 @@
 {% block hero_text %}<h1>{{ user.username }}</h1>{% endblock %}
 
 {% block content %}
-	<h2>{{ user.email }}</h2>
-
 <div id="account.student">
  <div class="row">
     <div class="col-sm-3 col-md-3">
+      <div class="well"> 
         <ul class="nav nav-pills nav-stacked">
-          <li class="nav-header">Settings</li>
-          <li><a href="#/home/" >Home</a></li>
-          <li><a href="#/editprofile" >Student Profile</a></li>          
+          <li class="nav-header"><span class="text-muted">Settings</span></li>
+          <li class="nav-divider"></li>
+          <li ><a href="#/" >Student Profile</a></li>
           <li><a href="#/messages" >Historical Messages</a></li>
           <li><a href="#/password" >Change Password</a></li>
         </ul>
-       <hr>
+      </div>
    </div>
  <div class="col-sm-8 col-md-8">
  <div ui-view ></div>

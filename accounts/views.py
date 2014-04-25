@@ -1,7 +1,3 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-
-
 from django.contrib.auth import get_user_model
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse
@@ -11,7 +7,6 @@ from django.template import RequestContext
 from accounts.models import UserProfile, ClientProfile
 from institution.models import Institution
 from requestforms.models import Enquiry
-from accounts.api.serializers import StudentSerializer, EnquiriesSerializer
 
 from .forms import UserProfileForm, ClientProfileForm, InstitutionEditForm
 
@@ -27,27 +22,12 @@ def accounts_view(request):
 
 
 
+
+##########################STUDENT VIEWS###########################
+
 def UserProfileDetailView(request):
     return render_to_response("account/student/student_profile.html", locals(), 
         context_instance=RequestContext(request))
-
-
-
-
-@api_view(['GET'])
-def StudentDetailAPI(request):
-    student = get_object_or_404(UserProfile, user=request.user)
-    serializer = StudentSerializer(student)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def StudentEnquiriesAPI(request):
-    student = get_object_or_404(UserProfile, user=request.user)
-    enquiries = Enquiry.objects.filter(student=student)
-    serializer = EnquiriesSerializer(enquiries)
-    return Response(serializer.data)
-
 
 
 def StudentEnquiriesView(request):
@@ -84,11 +64,16 @@ class UserProfileEditView(UpdateView):
         return UserProfile.objects.get_or_create(user=self.request.user)[0]
 
     def get_success_url(self):
-        return reverse("user_profile", kwargs={'slug': self.request.user})
+        return reverse("student-edit-profile")
 
 
 
-def ClientProfileDetailView(request, slug):
+
+
+
+##########################CLIENT VIEWS###########################
+
+def ClientProfileDetailView(request):
 
     client = get_object_or_404(ClientProfile, user=request.user)
     institutions = Institution.objects.filter(client=client.id)
@@ -103,6 +88,14 @@ def ClientProfileDetailView(request, slug):
         return user
 """
 
+
+
+def ClientDashboardView(request):
+    return render_to_response("account/client/dashboard.html", locals(), 
+        context_instance=RequestContext(request))
+
+
+
 class ClientProfileEditView(UpdateView):
     model = get_user_model()
     form_class = ClientProfileForm
@@ -112,7 +105,7 @@ class ClientProfileEditView(UpdateView):
         return ClientProfile.objects.get_or_create(user=self.request.user)[0]
 
     def get_success_url(self):
-        return reverse("client_profile", kwargs={'slug': self.request.user})
+        return reverse("client_edit_profile")
 
 
 
@@ -125,4 +118,4 @@ class InstitutionEditView(UpdateView):
         return Institution.objects.get_or_create(client=self.kwargs['client'])[0]
 
     def get_success_url(self):
-        return reverse("client_profile", kwargs={'slug': self.request.user})
+        return reverse("client_edit_institution")

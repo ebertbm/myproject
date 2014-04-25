@@ -4,26 +4,21 @@ angular.module('account.student', ['ui.router', 'ngTable'])
       $interpolateProvider.startSymbol('[[');
       $interpolateProvider.endSymbol(']]');
 
-/*      var settings = {
-        name: 'settings',
-        url: '/settings',
-        templateUrl: '/student_edit_profile.html'
-      };
-*/
+      $urlRouterProvider
+      .otherwise('/');
 
       var studentProfile = {
         name: 'studentEditProfile',
-        url: '/editprofile',
-        templateUrl: 'student_edit_profile.html',
-        controller: 'StudentController'
-      };
+        url: '/',
+        templateUrl: 'student_edit_profile.html'
+        };
 
 
       var studentEnquiries = {
         name: 'studentenquiries',
         url: '/messages',
         templateUrl: 'student_enquiries.html',
-        controller: 'DemoCtrl'
+        controller: 'EnquiryTableCtrl'
       };
 
       var changePassword = {
@@ -32,11 +27,10 @@ angular.module('account.student', ['ui.router', 'ngTable'])
         templateUrl: '../password/change/'
         };
 
-
-      $stateProvider
-      .state(studentProfile)
-      .state(changePassword)
-      .state(studentEnquiries);
+        $stateProvider
+        .state(studentProfile)
+        .state(changePassword)
+        .state(studentEnquiries);
     })
 
 .controller('StudentController', function ($scope, $http) {
@@ -58,7 +52,7 @@ angular.module('account.student', ['ui.router', 'ngTable'])
 
 })
 
-.controller('DemoCtrl', function($scope, $filter, $http, ngTableParams) {
+.controller('EnquiryTableCtrl', function($scope, $filter, $http, ngTableParams) {
 
             $scope.tableParams = new ngTableParams({
                 page: 1,            // show first page
