@@ -76,7 +76,7 @@ class UserProfileEditView(UpdateView):
 def ClientProfileDetailView(request):
 
     client = get_object_or_404(ClientProfile, user=request.user)
-    institutions = Institution.objects.filter(client=client.id)
+    institutions = Institution.objects.filter(client=client.id)[0]
     enquiries = Enquiry.objects.filter(client=client)
 
     return render_to_response("account/client/client_profile.html", locals(), 
@@ -95,7 +95,6 @@ def ClientDashboardView(request):
         context_instance=RequestContext(request))
 
 
-
 class ClientProfileEditView(UpdateView):
     model = get_user_model()
     form_class = ClientProfileForm
@@ -108,14 +107,50 @@ class ClientProfileEditView(UpdateView):
         return reverse("client_edit_profile")
 
 
+def ClientLeadsView(request):
+    return render_to_response("account/client/leads.html", locals(), 
+        context_instance=RequestContext(request))
 
-class InstitutionEditView(UpdateView):
+
+def AngularRouterView(request):
+    return render_to_response("account/client/router.html", locals(), 
+        context_instance=RequestContext(request))
+
+
+class InstitutionView(UpdateView):
     model = Institution
     form_class = InstitutionEditForm
-    template_name = "account/client/institution_edit.html"
+    template_name = "account/client/institution_profile.html"
+
+    def get_object(self, queryset=None):
+        client = get_object_or_404(ClientProfile, user=self.request.user)
+        return Institution.objects.get_or_create(client=client.id)[0]
+
+    def get_success_url(self):
+        return reverse("client_profile_institution")
+
+
+
+class InstitutionDetailView(UpdateView):
+    model = Institution
+    form_class = InstitutionEditForm
+    template_name = "account/client/details.html"
+
+    def get_object(self, queryset=None):
+        client = get_object_or_404(ClientProfile, user=self.request.user)
+        return Institution.objects.get_or_create(client=client.id)[0]
+
+    def get_success_url(self):
+        return reverse("client_profile_institution")
+
+
+class InstitutionAcademicView(UpdateView):
+    model = Institution
+    form_class = InstitutionEditForm
+    template_name = "account/client/academic_details.html"
 
     def get_object(self, queryset=None):
         return Institution.objects.get_or_create(client=self.kwargs['client'])[0]
 
     def get_success_url(self):
-        return reverse("client_edit_institution")
+        return reverse("client_profile_institution")

@@ -8,15 +8,12 @@
 
   <div class="container">
   	<div id="account.client">
-    <h4>
-        A brief introduction to <strong class="text-danger">ui-router</strong>
-        <span class="text-muted">(v0.2.0)</span>
-    </h4>
     <div>
         <ul class="nav nav-pills">
             <li><a href="#/home">Home</a></li>
             <li><a href="#/editprofile">Edit User Profile</a></li>
             <li><a href="#/institution">My Institution</a></li>
+            <li><a href="#/leads">Leads</a></li>
         </ul>
     </div>
     <div ui-view></div>
@@ -25,50 +22,8 @@
 
 
 
-<address>
-  <strong>Contact Informations:</strong><br>
-  <p>{{ client.address }}</p>
-</address>
-<br>
- <strong>Your Institutions:</strong>
-
-  {% for q in institutions %}
-    <h5><a href="{% url 'client_edit_institution' q.id %}">{{ q.name_institution }}</a></h5>
-  {% endfor %} 
-<br><br>
-
- <strong>Your Profile:</strong><br>
-
-  <a class="btn btn-default" href="{% url 'client_edit_profile' %}" role="button">Edit Profile</a></button>
-<br><br>
-
 <a class="btn btn-default" href="{% url 'account_change_password' %}" role="button">Change your password</a>
 
-<br><br>
-
-<a class="btn btn-default" href="{% url 'account_change_password' %}" role="button">View Stats</a>
-
-
-
-<h2>Leads</h2>
-<div class="table-responsive" >
-	<table class="table table-bordered">
-  		<tbody> 
- 		{% for en in enquiries %} 
- 		<tr> 
- 			<td> 
-				 <a>{{ en.email }} </a> 
-			</td> 
-			<td>{{ en.first_name }}</td> 
-			<td>{{ en.last_name }}</td> 
-			<td>{{ en.content }}</td> 
-		</tr> 
-		{% endfor %} 
-	</tbody> 
-</table>
-</div>
-
-</div>
 
 {% endblock %}
 

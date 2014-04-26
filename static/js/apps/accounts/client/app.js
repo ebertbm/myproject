@@ -4,6 +4,10 @@ angular.module('account.client', ['ui.router', 'ngTable'])
       $interpolateProvider.startSymbol('[[');
       $interpolateProvider.endSymbol(']]');
 
+      $urlRouterProvider
+      .when('/institution','/institution/details')
+      .otherwise('/home');
+
       $stateProvider
       .state('home', {
         url: '/home',
@@ -13,18 +17,34 @@ angular.module('account.client', ['ui.router', 'ngTable'])
         url: '/editprofile',
         templateUrl: 'client/client_edit_profile.html'
       })
+      .state('leads', {
+        url: '/leads',
+        templateUrl: 'client/leads.html',
+        controller: 'EnquiryTableCtrl'
+      })
+
       .state('institution', {
         url: '/institution',
-        templateUrl: 'client/institution_edit.html',
-        controller: 'ListCtrl'
+        templateUrl: 'client/institution/' //This is template only to do angular routing
+        //controller: 
       })
-      .state('list.item', {
-        url: '/:item',
-        templateUrl: 'templates/list.item.html',
-        controller: function($scope, $stateParams) {
-          $scope.item = $stateParams.item;
-        }
+      .state('institution.details', {
+        url: '/details',
+        templateUrl: 'client/details.html',
+      })
+      .state('institution.academic', {
+        url: '/academic',
+        templateUrl: 'client/academic_details.html',
+      })
+      .state('institution.photos', {
+        url: '/photos',
+        templateUrl: 'client/photos.html',
+      })
+      .state('institution.videos', {
+        url: '/videos',
+        templateUrl: 'client/videos.html',
       });
+
     })
 
 .controller("ListCtrl", function($scope) {
@@ -44,4 +64,34 @@ angular.module('account.client', ['ui.router', 'ngTable'])
       }
     });
   };
+})
+
+
+.controller('InstRouteCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {
+    $scope.templateUrl = 'client/institution/'+ $stateParams.id+'/';
+}])
+
+.controller('EnquiryTableCtrl', function($scope, $filter, $http, ngTableParams) {
+
+            $scope.tableParams = new ngTableParams({
+                page: 1,            // show first page
+                count: 10,          // count per page
+                sorting: {
+                    name: 'asc'     // initial sorting
+                }
+            }, {
+               // total: data.length, // length of data
+                getData: function($defer, params) {
+                    // use build-in angular filter
+                    $http.get('enquiries/api/').success(function(data) {
+                      console.log(data[0].institution_interested);
+                      console.log(data[0].institution_interested[0]);
+                    var orderedData = params.sorting() ?
+                                        $filter('orderBy')(data, params.orderBy()) :
+                                        data;
+
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                });
+                }
+            });
 });

@@ -1,0 +1,80 @@
+<h2>Message Historial</h2>
+<div class="table-responsive" >
+	<table class="table table-bordered">
+		<tbody> 
+			<tr ng-repeat="en in enquiries"> 
+				<td>[[ en.id ]]</td> 
+				<td>[[ en.first_name ]]</td> 
+				<td>[[ en.last_name ]]</td> 
+				<td>[[ en.content ]]</td>
+				<td>[[ en.created | date:'medium' ]]</td> 
+			</tr> 
+		</tbody> 
+	</table>
+</div>
+
+
+<table ng-table="tableParams" class="table table-hover">
+	<tr ng-repeat="user in $data">
+		<td data-title="'Id'" sortable="'id'">
+			[[user.id]]
+		</td>
+		<td data-title="'Message'" sortable="'message'">
+			[[user.content ]]
+		</td>
+		<td data-title="'Date'" sortable="'created'">
+			[[user.created | date:'medium']]
+		</td>
+		<td data-title="'Actions'">
+			<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">More Info</button>
+
+
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">More Information</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">	
+								<div class="col-xs-6">
+									<strong>Message: </strong>[[user.content]]
+									<strong>Expected time: </strong>[[user.expected_time ]]
+									<strong>Institution Interested: </strong>
+									<p ng-repeat="en in user.institution_interested">
+										<select multiple class="form-control"> 
+											<option value="[[en]]">[[en]]</option>
+										</select>
+									</p>
+									<strong>Study Level Interested: </strong>
+									<p ng-repeat="en in user.study_level_interested"> 
+										<select multiple class="form-control"> 
+											<option value="[[en]]">[[en]]</option>
+										</select>
+									</p>
+								</div>
+								<div class="col-xs-6">
+									<strong>Study Area Interested: </strong>
+									<p ng-repeat="en in user.area_interested"> 
+										<select multiple class="form-control"> 
+											<option value="[[en]]">[[en]]</option>
+										</select>
+									</p>
+									<strong>Country Interested: </strong>[[user.country_interested ]]
+									<strong>More Info: </strong>[[user.more_info ]]
+								</div>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>            
+			
+		</td>                              
+	</tr>
+</table>

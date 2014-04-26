@@ -1,0 +1,23 @@
+<h2>{{ institution.name_institution }}'s Profile</h2>
+
+ <div class="row">
+    <div class="col-sm-3 col-md-3">
+      <div class="well"> 
+        <ul class="nav nav-pills nav-stacked">
+          <li class="nav-header"><span class="text-muted">Description</span></li>
+          <li class="nav-divider"></li>
+          <li ><a ui-sref="institution.details" >General Details</a></li>
+          <li><a ui-sref="institution.academic" >Academic Details</a></li>
+          <li><a ui-sref="institution.photos" >Photos</a></li>
+          <li><a ui-sref="institution.videos" >Videos</a></li>
+          <br>
+          <li class="nav-header"><span class="text-muted">Settings</span></li>
+          <li class="nav-divider"></li>
+          <li><a ui-sref="institution.academic" >My Package</a></li>
+        </ul>
+      </div>
+   </div>
+ <div class="col-sm-8 col-md-8">
+ <div ui-view ></div>
+</div>
+ </div>
