@@ -8,7 +8,8 @@ from accounts.models import UserProfile, ClientProfile
 from institution.models import Institution
 from requestforms.models import Enquiry
 
-from .forms import UserProfileForm, ClientProfileForm, InstitutionEditForm
+from .forms import UserProfileForm, ClientProfileForm
+from .formsInstitution import EditDetailsForm, EditAcademicForm, EditContactForm
 
 
 
@@ -117,40 +118,72 @@ def AngularRouterView(request):
         context_instance=RequestContext(request))
 
 
-class InstitutionView(UpdateView):
-    model = Institution
-    form_class = InstitutionEditForm
-    template_name = "account/client/institution_profile.html"
+def InstitutionView(request):
+    client = get_object_or_404(ClientProfile, user=request.user)
+    institution = Institution.objects.get_or_create(client=client.id)[0]
 
-    def get_object(self, queryset=None):
-        client = get_object_or_404(ClientProfile, user=self.request.user)
-        return Institution.objects.get_or_create(client=client.id)[0]
-
-    def get_success_url(self):
-        return reverse("client_profile_institution")
+    return render_to_response("account/client/institution_profile.html", locals(), 
+        context_instance=RequestContext(request))
 
 
 
-class InstitutionDetailView(UpdateView):
-    model = Institution
-    form_class = InstitutionEditForm
-    template_name = "account/client/details.html"
+def InstitutionDetailView(request):
+    client = get_object_or_404(ClientProfile, user=request.user)
+    institution = Institution.objects.get_or_create(client=client.id)[0]
 
-    def get_object(self, queryset=None):
-        client = get_object_or_404(ClientProfile, user=self.request.user)
-        return Institution.objects.get_or_create(client=client.id)[0]
+    if request.method == 'POST':
 
-    def get_success_url(self):
-        return reverse("client_profile_institution")
+        form = EditDetailsForm(request.POST, instance = institution)
+        if form.is_valid():
+            form.save()
+
+            return  render_to_response('account/client/details.html', 
+                {'form': form, 'institution':institution}, context_instance=RequestContext(request))
+    else:
+        form = EditDetailsForm(instance = institution)
+
+    return render_to_response('account/client/details.html', 
+        {'form': form, 'institution':institution}, context_instance=RequestContext(request))
 
 
-class InstitutionAcademicView(UpdateView):
-    model = Institution
-    form_class = InstitutionEditForm
-    template_name = "account/client/academic_details.html"
 
-    def get_object(self, queryset=None):
-        return Institution.objects.get_or_create(client=self.kwargs['client'])[0]
+def InstitutionContactView(request):
+    client = get_object_or_404(ClientProfile, user=request.user)
+    institution = Institution.objects.get_or_create(client=client.id)[0]
 
-    def get_success_url(self):
-        return reverse("client_profile_institution")
+    if request.method == 'POST':
+
+        form = EditContactForm(request.POST, instance = institution)
+        if form.is_valid():
+            form.save()
+
+            return  render_to_response('account/client/contact_details.html', 
+                {'form': form, 'institution':institution}, context_instance=RequestContext(request))
+    else:
+        form = EditContactForm(instance = institution)
+
+    return render_to_response('account/client/contact_details.html', 
+        {'form': form, 'institution':institution}, context_instance=RequestContext(request))
+
+
+
+
+
+def InstitutionAcademicView(request):
+    client = get_object_or_404(ClientProfile, user=request.user)
+    institution = Institution.objects.get_or_create(client=client.id)[0]
+
+    if request.method == 'POST':
+
+        form = EditAcademicForm(request.POST, instance = institution)
+        if form.is_valid():
+            form.save()
+
+            return  render_to_response('account/client/academic_details.html', 
+                {'form': form, 'institution':institution}, context_instance=RequestContext(request))
+    else:
+        form = EditAcademicForm(instance = institution)
+
+    return render_to_response('account/client/academic_details.html', 
+        {'form': form, 'institution':institution}, context_instance=RequestContext(request))
+

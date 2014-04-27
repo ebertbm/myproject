@@ -1,9 +1,21 @@
+{% load crispy_forms_tags %}
 
-<h2>{{ user.username }}'s Profile</h2>
+<div class="page-header">
+<h2>Edit your Profile</h2>
+</div>
+{% crispy form %}
 
-<form method="post" action="">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Edit">
-</form>
-
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-error">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}

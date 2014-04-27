@@ -13,7 +13,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class EnquiriesSerializer(serializers.ModelSerializer):
-    institution_interested = serializers.RelatedField(source='institution_interested')
+    """institution_interested = serializers.RelatedField(source='institution_interested')"""
     country_interested = serializers.RelatedField(source='country_interested')
     study_level_interested = serializers.RelatedField(many=True)
     area_interested = serializers.RelatedField(many=True)
@@ -23,6 +23,6 @@ class EnquiriesSerializer(serializers.ModelSerializer):
         model = Enquiry
         ordering = ['created']
         fields = ('id', 'content', 'expected_time',  'institution_interested', 'country_interested',
-            'study_level_interested', 'area_interested', 'institution_interested',
+            'study_level_interested', 'area_interested',
             'created', 'more_info')
 

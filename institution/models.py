@@ -17,10 +17,10 @@ class Institution(models.Model):
 
     client = models.ForeignKey(ClientProfile)
     #Basic information
-    name_institution = models.CharField(max_length=114, unique=True)
+    name_institution = models.CharField(max_length=114, unique=True, blank=True, null=True)
     docfile = models.FileField(upload_to='profiles/', blank=True, null=True)
     short_description = models.TextField(max_length=255, null=True)
-    slug = models.SlugField(unique=True, max_length=255)
+    slug = models.SlugField(unique=True, max_length=255, blank=True, null=True)
     
     #Contact Information
     location = models.ForeignKey(Location)
@@ -36,10 +36,10 @@ class Institution(models.Model):
     is_featured = models.BooleanField(default=False)
 
     #Crossed Data
-    type_institution = models.CharField(max_length=40, choices=INSTITUTION_TYPES, null=True)
-    level_study = models.ManyToManyField(StudyLevel, null=True)
-    course_language = models.ManyToManyField(LanguageCourse, null=True)
-    study_area = models.ManyToManyField(StudyArea, null=True)
+    type_institution = models.CharField(max_length=40, choices=INSTITUTION_TYPES, blank=True, null=True)
+    level_study = models.ManyToManyField(StudyLevel, blank=True, null=True)
+    course_language = models.ManyToManyField(LanguageCourse, blank=True, null=True)
+    study_area = models.ManyToManyField(StudyArea, blank=True, null=True)
 
     created = models.DateTimeField(auto_now_add=True)
     

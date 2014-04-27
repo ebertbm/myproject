@@ -12,9 +12,9 @@
 		</tbody> 
 	</table>
 </div>
-
-
-<table ng-table="tableParams" class="table table-hover">
+<p> NOTE: CHANGE TO NG-GRID BECAUSE THE EXPORT FUNCTIONALITY</p>
+<a class="btn btn-primary" ng-mousedown="csv.generate()" ng-href="[[ csv.link() ]]" download="test.csv">Export to CSV</a>
+<table ng-table="tableParams" class="table table-hover" export-csv="csv">
 	<tr ng-repeat="user in $data">
 		<td data-title="'Id'" sortable="'id'">
 			[[user.id]]

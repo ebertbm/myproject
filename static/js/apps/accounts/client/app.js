@@ -1,4 +1,4 @@
-angular.module('account.client', ['ui.router', 'ngTable'])
+angular.module('account.client', ['ui.router', 'ngTable', 'ngTableExport'])
 .config(function ($stateProvider, $interpolateProvider, $urlRouterProvider) {
       //allow django templates and singular to co-exist
       $interpolateProvider.startSymbol('[[');
@@ -25,16 +25,20 @@ angular.module('account.client', ['ui.router', 'ngTable'])
 
       .state('institution', {
         url: '/institution',
-        templateUrl: 'client/institution/' //This is template only to do angular routing
+        templateUrl: 'client/institution/'
         //controller: 
       })
       .state('institution.details', {
         url: '/details',
-        templateUrl: 'client/details.html',
+        templateUrl: 'client/details.html'
+      })
+      .state('institution.contact', {
+        url: '/contact',
+        templateUrl: 'client/contact_details.html'
       })
       .state('institution.academic', {
         url: '/academic',
-        templateUrl: 'client/academic_details.html',
+        templateUrl: 'client/academic_details.html'
       })
       .state('institution.photos', {
         url: '/photos',
@@ -67,11 +71,7 @@ angular.module('account.client', ['ui.router', 'ngTable'])
 })
 
 
-.controller('InstRouteCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {
-    $scope.templateUrl = 'client/institution/'+ $stateParams.id+'/';
-}])
-
-.controller('EnquiryTableCtrl', function($scope, $filter, $http, ngTableParams) {
+.controller('EnquiryTableCtrl', function($scope, $filter, $http, ngTableParams, $sce) {
 
             $scope.tableParams = new ngTableParams({
                 page: 1,            // show first page
@@ -83,9 +83,8 @@ angular.module('account.client', ['ui.router', 'ngTable'])
                // total: data.length, // length of data
                 getData: function($defer, params) {
                     // use build-in angular filter
-                    $http.get('enquiries/api/').success(function(data) {
-                      console.log(data[0].institution_interested);
-                      console.log(data[0].institution_interested[0]);
+                    $http.get('institution_enquiries/api/').success(function(data) {
+                      console.log(data);
                     var orderedData = params.sorting() ?
                                         $filter('orderBy')(data, params.orderBy()) :
                                         data;

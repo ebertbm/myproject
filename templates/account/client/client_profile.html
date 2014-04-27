@@ -13,7 +13,8 @@
             <li><a href="#/home">Home</a></li>
             <li><a href="#/editprofile">Edit User Profile</a></li>
             <li><a href="#/institution">My Institution</a></li>
-            <li><a href="#/leads">Leads</a></li>
+            <li><a href="#/leads">My Leads</a></li>
+            <li><a href="#/reviews">My Reviews</a></li>
         </ul>
     </div>
     <div ui-view></div>
@@ -21,6 +22,9 @@
   </div>
 
 
+
+
+<a class="btn btn-default" href="{% url 'institution_edit_details' %}" role="button">Edit Details</a>
 
 <a class="btn btn-default" href="{% url 'account_change_password' %}" role="button">Change your password</a>
 
@@ -32,6 +36,7 @@
 <script src="/static/js/apps/accounts/client/app.js"></script>
 <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
 <script src="/static/js/lib/ng-table.js"></script>
+<script src="/static/js/lib/ng-table-export.src.js"></script>
  
 <link rel="stylesheet" href="/static/css/ng-table.css">
 

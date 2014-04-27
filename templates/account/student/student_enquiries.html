@@ -1,19 +1,4 @@
-<h2>Message Historial</h2>
-<div class="table-responsive" >
-	<table class="table table-bordered">
-		<tbody> 
-			<tr ng-repeat="en in enquiries"> 
-				<td>[[ en.id ]]</td> 
-				<td>[[ en.first_name ]]</td> 
-				<td>[[ en.last_name ]]</td> 
-				<td>[[ en.content ]]</td>
-				<td>[[ en.created | date:'medium' ]]</td> 
-			</tr> 
-		</tbody> 
-	</table>
-</div>
-
-
+<h2>Leads</h2>
 <table ng-table="tableParams" class="table table-hover">
 	<tr ng-repeat="user in $data">
 		<td data-title="'Id'" sortable="'id'">
