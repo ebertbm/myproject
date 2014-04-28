@@ -3,23 +3,134 @@
 
 {% block content %}
 <div class="span12">
-<h2>{{ institution.name_institution }}</h2>
+	<div class="page-header">
+		<h1>{{ institution.name_institution }} </h1>
+		<h1><small>Boston, USA</small></h1>
+	</div>
 
-<address>
-  <strong>Contact Information:</strong><br>
-  {{ institution.address }}<br>
-  {{ institution.location }}<br>
-  <abbr title="Phone">P:</abbr> {{ institution.phone }}
-</address>
 
-<address>
-<a href="mailto:{{ institution.get_contact_email }}">{{ institution.contact_email }}</a>
-</address>
+	<div id="app">
+		<div class="col-md-8">
+			<div class="row">
+				<tabs>
+					<pane title="Photos">
+					</pane>
+					<pane title="Videos">
+					</pane>
+					<pane title="Deals">
+					</pane>
+					<pane title="Maps">
+					</pane>
+					<pane title="Street Views">
+					</pane>
+				</tabs>
+			</div>
+			<div class="well">
+				<img src="http://www.amillionminds.in/wp-content/uploads/2013/08/government.jpg" class="img-rounded">
+			</div>
+			<br>
 
-<p> <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'contacts:enquiry_form' institution.id %}">Contact</a></button> </p>
+			<div class="row">
+				<tabs>
+					<pane title="Description">
+						<br>
+						<address>
+							<strong>Contact Information:</strong><br>
+							{{ institution.address }}<br>
+							{{ institution.location }}<br>
+							<abbr title="Phone">Phone:</abbr> {{ institution.phone }}
+						</address>
 
-<p>{{ institution.content }}</p>
+						<address>
+							<a href="mailto:{{ institution.get_contact_email }}">{{ institution.contact_email }}</a>
+						</address>
 
-</div>
 
-{% endblock %}
+						<p>{{ institution.content }}</p>
+
+					</pane>
+					<pane title="Study Fields">
+
+					</pane>
+					<pane title="Study Levels">
+					</pane>
+					<pane title="Student Services">
+					</pane>
+					<pane title="Pluralization">
+						<div ng-controller="BeerCounter">
+							<div ng-repeat="beerCount in beers">
+								<ng-pluralize count="beerCount" when="beerForms"></ng-pluralize>
+							</div>
+						</div>
+					</pane>
+				</tabs>
+			</div>
+
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Reviews</h3>
+					</div>
+					<div class="panel-body">
+						Reviews #1
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="col-md-4">
+
+			<div class="well">
+				<p> <button type="button" class="btn btn-default btn-lg"><a href="{% url 'contacts:enquiry_form' institution.id %}">Request Information</a></button> </p>
+				<br>
+				<p> <button type="button" class="btn btn-default btn-lg"><a href="#">Phone Number: 421331...</a></button> </p>
+
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Similar Institutions</h3>
+				</div>
+				<div class="panel-body">
+					<ul>
+						<li>Institution 1</li>
+						<li>Institution 2</li>
+						<li>Institution 3</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">NEWS</h3>
+				</div>
+				<div class="panel-body">
+					<ul>
+						<li>Article 1</li>
+						<li>Article 2</li>
+						<li>Article 3</li>
+					</ul>
+				</div>
+			</div>
+
+
+
+		</div>
+
+	</div>
+
+
+	{% endblock %}
+	{% block extra_javascript %}
+	<script src="/static/js/apps/institution/app.js"></script>
+	<script src="/static/js/apps/institution/components.js"></script>
+
+	<script>
+	angular.element(document).ready(function() {
+		angular.bootstrap(document.getElementById('app'), ['app']);
+	});
+	</script>
+	{% endblock extra_javascript %}
