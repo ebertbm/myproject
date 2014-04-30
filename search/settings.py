@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'imagekit',
     'rest_framework',
     'crispy_forms',
+    'easy_maps',
 	
 	#OWN APPS
     'institution',
@@ -63,6 +64,8 @@ ROOT_URLCONF = 'search.urls'
 
 WSGI_APPLICATION = 'search.wsgi.application'
 
+#COORDINATES TO CENTER THE GOOGLE MAPS
+EASY_MAPS_CENTER = (-41.3, 32)
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 

@@ -20,5 +20,7 @@ urlpatterns = patterns('',
 	#url(r'^$', views.index, name='index'),
 	url(r'^$',  views.search, name='haystack_search'),
 	url(r'^results',  views.results, name='results'),
-	url(r'^(?P<pk>\d+)/$', views.DetailView.as_view(), name='detail'),
+	url(r'^(?P<pk>\d+)/$', views.DetailView, name='detail'),
+	url(r'^map.html',  views.MapView, name='map'),
+	url(r'^street.html',  views.StreetView, name='street'),
 )

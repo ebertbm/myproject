@@ -14,20 +14,30 @@
 			<div class="row">
 				<tabs>
 					<pane title="Photos">
+						<div class="well">
+				<img src="http://www.amillionminds.in/wp-content/uploads/2013/08/government.jpg" class="img-rounded">
+			</div>
 					</pane>
 					<pane title="Videos">
 					</pane>
 					<pane title="Deals">
 					</pane>
 					<pane title="Maps">
+					<br>
+{% load easy_maps_tags %}
+
+<!-- Default map with 300x400 dimensions -->
+{% easy_map "82 Brook Avenue, HA8 9XA" 350 240 %} 
+
+<br>
 					</pane>
 					<pane title="Street Views">
+					    <div id="map-canvas" style="width: 400px; height: 300px"></div>
+    <div id="pano" style="position:absolute; left:410px; top: 8px; width: 400px; height: 300px;"></div>
 					</pane>
 				</tabs>
 			</div>
-			<div class="well">
-				<img src="http://www.amillionminds.in/wp-content/uploads/2013/08/government.jpg" class="img-rounded">
-			</div>
+
 			<br>
 
 			<div class="row">
@@ -49,11 +59,32 @@
 						<p>{{ institution.content }}</p>
 
 					</pane>
-					<pane title="Study Fields">
 
+					<br>
+					{% if study_area %}
+					<pane title="Study Areas">
+					<!--{{study_area|length }} !-->
+					<ul>
+					{%for area in study_area%}
+					<li>{{area}}</li>
+					{% endfor %}
+					</ul>
 					</pane>
+
+					{% endif %}
+					<br>
+					{% if level_study %}
 					<pane title="Study Levels">
+					<!--{{study_area|length }} !-->
+					<ul>
+					{%for level in level_study%}
+					<li>{{level}}</li>
+					{% endfor %}
+					</ul>
 					</pane>
+
+					{% endif %}
+
 					<pane title="Student Services">
 					</pane>
 					<pane title="Pluralization">
@@ -127,6 +158,8 @@
 	{% block extra_javascript %}
 	<script src="/static/js/apps/institution/app.js"></script>
 	<script src="/static/js/apps/institution/components.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="/static/js/apps/institution/street.js"></script>
 
 	<script>
 	angular.element(document).ready(function() {

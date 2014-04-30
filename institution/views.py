@@ -1,5 +1,6 @@
 from django.views import generic
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, get_object_or_404, render_to_response
+from django.template import RequestContext
 
 from institution.models import Institution
 from institution.forms import InstitutionSearchForm
@@ -53,6 +54,22 @@ def results(request):
     return InstitutionResultsView(form_class=InstitutionSearchForm, searchqueryset=sqs)(request)
 
 
-class DetailView(generic.DetailView):
-    model = Institution
-    template_name = 'institution/detail.html'
+
+
+def MapView(request):
+    return render_to_response("institution/map.html", locals(), 
+        context_instance=RequestContext(request))
+
+def StreetView(request):
+    return render_to_response("institution/street.html", locals(), 
+        context_instance=RequestContext(request))
+
+def DetailView(request, pk):
+
+    institution = get_object_or_404(Institution, id=pk)
+
+    level_study = institution.level_study.values_list('name_level', flat=True).order_by('name_level')
+    study_area = institution.study_area.values_list('name_area', flat=True).order_by('name_area')
+
+    return render_to_response("institution/detail.html", locals(), 
+        context_instance=RequestContext(request))
