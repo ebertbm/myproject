@@ -18,9 +18,9 @@ urlpatterns = patterns('haystack.views',
 
 urlpatterns = patterns('', 
 	#url(r'^$', views.index, name='index'),
-	url(r'^$',  views.search, name='haystack_search'),
+	#url(r'^$',  views.search, name='haystack_search'),
 	url(r'^results',  views.results, name='results'),
 	url(r'^(?P<pk>\d+)/$', views.DetailView, name='detail'),
-	url(r'^map.html',  views.MapView, name='map'),
-	url(r'^street.html',  views.StreetView, name='street'),
+	url(r'^(?P<pk>\d+)/map/$',  views.MapView, name='institution_map'),
+	url(r'^(?P<pk>\d+)/street/$',  views.StreetView, name='institution_street'),
 )

@@ -1,50 +1,69 @@
 angular.module('components', [])
  
-  .directive('tabs', function() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {},
-      controller: function($scope, $element) {
-        var panes = $scope.panes = [];
+  .directive('pane', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    transclude: true,
+    controller: function($scope) {
+      $scope.templateUrl = '';
+      var tabs = $scope.tabs = [];
+      var controller = this;
  
-        $scope.select = function(pane) {
-          angular.forEach(panes, function(pane) {
-            pane.selected = false;
-          });
-          pane.selected = true;
-        };
+      this.selectTab = function (tab) {
+        angular.forEach(tabs, function (tab) {
+          tab.selected = false;
+        });
+        tab.selected = true;
+      };
  
-        this.addPane = function(pane) {
-          if (panes.length == 0) $scope.select(pane);
-          panes.push(pane);
-        };
-      },
-      template:
-        '<div class="tabbable">' +
-          '<ul class="nav nav-tabs">' +
-            '<li ng-repeat="pane in panes" ng-class="{active:pane.selected}">'+
-              '<a href="" ng-click="select(pane)">{{pane.title}}</a>' +
-            '</li>' +
-          '</ul>' +
-          '<div class="tab-content" ng-transclude></div>' +
-        '</div>',
-      replace: true
-    };
-  })
+      this.setTabTemplate = function (templateUrl) {
+        $scope.templateUrl = templateUrl;
+      };
  
-  .directive('pane', function() {
-    return {
-      require: '^tabs',
-      restrict: 'E',
-      transclude: true,
-      scope: { title: '@' },
-      link: function(scope, element, attrs, tabsCtrl) {
-        tabsCtrl.addPane(scope);
-      },
-      template:
-        '<div class="tab-pane" ng-class="{active: selected}" ng-transclude>' +
-        '</div>',
-      replace: true
-    };
-  });
+      this.addTab = function (tab) {
+        if (tabs.length == 0) {
+          controller.selectTab(tab);
+        }
+        tabs.push(tab);
+      };
+    },
+    template:
+      '<div class="row-fluid">' +
+        '<div class="row-fluid">' +
+          '<div class="nav nav-tabs" ng-transclude></div>' +
+        '</div>' +
+        '<div class="row-fluid">' +
+          '<ng-include src="templateUrl">' +
+        '</ng-include></div>' +
+      '</div>'
+  };
+})
+.directive('tab', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    require: '^pane',
+    scope: {
+      title: '@',
+      templateUrl: '@'
+    },
+    link: function(scope, element, attrs, paneController) {
+      paneController.addTab(scope);
+ 
+      scope.select = function () {
+        paneController.selectTab(scope);
+      };
+ 
+      scope.$watch('selected', function () {
+        if (scope.selected) {
+          paneController.setTabTemplate(scope.templateUrl);
+        }
+      });
+    },
+    template:
+      '<li ng-class="{active: selected}">' +
+        '<a href="" ng-click="select()">{{ title }}</a>' +
+      '</li>'
+  };
+});

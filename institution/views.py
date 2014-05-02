@@ -56,12 +56,12 @@ def results(request):
 
 
 
-def MapView(request):
-    return render_to_response("institution/map.html", locals(), 
+def MapView(request, pk):
+    return render_to_response("institution/tabs/map.html", locals(), 
         context_instance=RequestContext(request))
 
-def StreetView(request):
-    return render_to_response("institution/street.html", locals(), 
+def StreetView(request, pk):
+    return render_to_response("institution/tabs/street.html", locals(), 
         context_instance=RequestContext(request))
 
 def DetailView(request, pk):
