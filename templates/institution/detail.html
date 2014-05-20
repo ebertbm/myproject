@@ -2,168 +2,118 @@
 {% block hero_text %}<h1>{{ institution.name_institution }}</h1>{% endblock %}
 
 {% block content %}
-	<div class="page-header">
-		<h1>{{ institution.name_institution }} </h1>
-		<h1><small>Boston, USA</small></h1>
+<div class="page-header">
+	<h1>{{ institution.name_institution }} </h1>
+	<h1><small>Boston, USA</small></h1>
+</div>
+
+
+<div id="app">
+
+	<div class="col-md-8">
+		<div class="row">
+			<pane>
+				<tab title="Photos" template-url="photos/">
+				</tab>
+				<tab title="Videos" template-url="videos/">
+				</tab>
+				<tab title="Deals" template-url="deals/">
+				</tab>
+				<tab title="Maps" template-url="map/">
+				</tab>
+				<tab title="Street Views" template-url="street/">
+				</tab>
+			</pane>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<pane>
+				<tab title="Description" template-url="description/">
+				</tab>
+				{% if study_area %}
+				<tab title="Study Areas" template-url="studyareas/">
+				</tab>
+				{% endif %}
+				{% if level_study %}
+				<tab title="Study Levels" template-url="studylevels/">
+				</tab>
+				{% endif %}
+				<tab title="Student Services" template-url="studentservices/">
+				</tab>
+			</pane>
+		</div>
+
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Reviews</h3>
+				</div>
+				<div class="panel-body">
+					Reviews #1
+				</div>
+			</div>
+		</div>
 	</div>
 
 
-	<div id="app">
 
 
+	<div class="col-md-4">
 
-		<div class="col-md-8">
-			<div class="row">
-				<pane>
-					<tab title="Photos">
-						<div class="well">
-				<img src="http://www.amillionminds.in/wp-content/uploads/2013/08/government.jpg" class="img-rounded">
-			</div>
-					</tab>
-					<tab title="Videos">
-					</tab>
-					<tab title="Deals">
-					</tab>
-					<tab title="Maps">
-					<br>
-					<div ng-include src="'map/'"></div>
-					<br>
-					</tab>
-					<tab title="Street Views">
-						<div ng-include src="'street/'"></div>
-					</tab>
-				</pane>
-			</div>
-
+		<div class="well">
+			<p> <button type="button" class="btn btn-default btn-lg"><a href="{% url 'contacts:enquiry_form' institution.id %}">Request Information</a></button> </p>
 			<br>
+			<p> <button type="button" class="btn btn-default btn-lg"><a href="#">Phone Number: 421331...</a></button> </p>
 
-			<div class="row">
-				<pane>
-					<tab title="Description">
-						<br>
-						<address>
-							<strong>Contact Information:</strong><br>
-							{{ institution.address }}<br>
-							{{ institution.location }}<br>
-							<abbr title="Phone">Phone:</abbr> {{ institution.phone }}
-						</address>
+		</div>
 
-						<address>
-							<a href="mailto:{{ institution.get_contact_email }}">{{ institution.contact_email }}</a>
-						</address>
-
-
-						<p>{{ institution.content }}</p>
-
-
-					</tab>
-
-					<br>
-					{% if study_area %}
-					<tab title="Study Areas">
-					<!--{{study_area|length }} !-->
-					<ul>
-					{%for area in study_area%}
-					<li>{{area}}</li>
-					{% endfor %}
-					</ul>
-					</tab>
-
-					{% endif %}
-					<br>
-					{% if level_study %}
-					<tab title="Study Levels">
-					<!--{{study_area|length }} !-->
-					<ul>
-					{%for level in level_study%}
-					<li>{{level}}</li>
-					{% endfor %}
-					</ul>
-					</tab>
-
-					{% endif %}
-
-					<tab title="Student Services">
-					</tab>
-					<tab title="Pluralization">
-						<div ng-controller="BeerCounter">
-							<div ng-repeat="beerCount in beers">
-								<ng-pluralize count="beerCount" when="beerForms"></ng-pluralize>
-							</div>
-						</div>
-					</tab>
-				</pane>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Similar Institutions</h3>
 			</div>
+			<div class="panel-body">
+				<ul>
+					<li>Institution 1</li>
+					<li>Institution 2</li>
+					<li>Institution 3</li>
+				</ul>
+			</div>
+		</div>
 
-			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Reviews</h3>
-					</div>
-					<div class="panel-body">
-						Reviews #1
-					</div>
-				</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">NEWS</h3>
+			</div>
+			<div class="panel-body">
+				<ul>
+					<li>Article 1</li>
+					<li>Article 2</li>
+					<li>Article 3</li>
+				</ul>
 			</div>
 		</div>
 
 
-
-
-		<div class="col-md-4">
-
-			<div class="well">
-				<p> <button type="button" class="btn btn-default btn-lg"><a href="{% url 'contacts:enquiry_form' institution.id %}">Request Information</a></button> </p>
-				<br>
-				<p> <button type="button" class="btn btn-default btn-lg"><a href="#">Phone Number: 421331...</a></button> </p>
-
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Similar Institutions</h3>
-				</div>
-				<div class="panel-body">
-					<ul>
-						<li>Institution 1</li>
-						<li>Institution 2</li>
-						<li>Institution 3</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">NEWS</h3>
-				</div>
-				<div class="panel-body">
-					<ul>
-						<li>Article 1</li>
-						<li>Article 2</li>
-						<li>Article 3</li>
-					</ul>
-				</div>
-			</div>
-
-
-
-		</div>
-
-   
 
 	</div>
 
 
 
+</div>
 
-	{% endblock %}
-	{% block extra_javascript %}
-	<script src="/static/js/apps/institution/app.js"></script>
-	<script src="/static/js/apps/institution/components.js"></script>
 
-	<script>
-	angular.element(document).ready(function() {
-		angular.bootstrap(document.getElementById('app'), ['app']);
-	});
-	</script>
-	{% endblock extra_javascript %}
+
+
+{% endblock %}
+{% block extra_javascript %}
+<script src="/static/js/apps/institution/app.js"></script>
+<script src="/static/js/apps/institution/components.js"></script>
+
+<script>
+angular.element(document).ready(function() {
+	angular.bootstrap(document.getElementById('app'), ['app']);
+});
+</script>
+{% endblock extra_javascript %}

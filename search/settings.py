@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'crispy_forms',
     'easy_maps',
+    
 	
 	#OWN APPS
     'institution',

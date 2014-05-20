@@ -56,14 +56,6 @@ def results(request):
 
 
 
-def MapView(request, pk):
-    return render_to_response("institution/tabs/map.html", locals(), 
-        context_instance=RequestContext(request))
-
-def StreetView(request, pk):
-    return render_to_response("institution/tabs/street.html", locals(), 
-        context_instance=RequestContext(request))
-
 def DetailView(request, pk):
 
     institution = get_object_or_404(Institution, id=pk)
@@ -73,3 +65,46 @@ def DetailView(request, pk):
 
     return render_to_response("institution/detail.html", locals(), 
         context_instance=RequestContext(request))
+
+
+def PhotosView(request, pk):
+    return render_to_response("institution/tabs/photos.html", locals(), 
+        context_instance=RequestContext(request))
+
+def VideosView(request, pk):
+    return render_to_response("institution/tabs/videos.html", locals(), 
+        context_instance=RequestContext(request))
+
+def DealsView(request, pk):
+    return render_to_response("institution/tabs/deals.html", locals(), 
+        context_instance=RequestContext(request))
+
+def DescriptionView(request, pk):
+    institution = get_object_or_404(Institution, id=pk)
+    return render_to_response("institution/tabs/description.html", locals(), 
+        context_instance=RequestContext(request))
+
+def StudyAreasView(request, pk):
+    institution = get_object_or_404(Institution, id=pk)
+    study_area = institution.study_area.values_list('name_area', flat=True).order_by('name_area')
+    return render_to_response("institution/tabs/areas.html", locals(), 
+        context_instance=RequestContext(request))
+
+def StudyLevelsView(request, pk):
+    institution = get_object_or_404(Institution, id=pk)
+    level_study = institution.level_study.values_list('name_level', flat=True).order_by('name_level')
+    return render_to_response("institution/tabs/levels.html", locals(), 
+        context_instance=RequestContext(request))
+
+def StudentServicesView(request, pk):
+    return render_to_response("institution/tabs/services.html", locals(), 
+        context_instance=RequestContext(request))
+
+def MapView(request, pk):
+    return render_to_response("institution/tabs/map.html", locals(), 
+        context_instance=RequestContext(request))
+
+def StreetView(request, pk):
+    return render_to_response("institution/tabs/street.html", locals(), 
+        context_instance=RequestContext(request))
+

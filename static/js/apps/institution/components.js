@@ -5,7 +5,8 @@ angular.module('components', [])
     restrict: 'E',
     replace: true,
     transclude: true,
-    controller: function($scope) {
+    scope: {},
+    controller: function($scope, $element) {
       $scope.templateUrl = '';
       var tabs = $scope.tabs = [];
       var controller = this;
@@ -22,7 +23,7 @@ angular.module('components', [])
       };
  
       this.addTab = function (tab) {
-        if (tabs.length == 0) {
+        if (tabs.length === 0) {
           controller.selectTab(tab);
         }
         tabs.push(tab);

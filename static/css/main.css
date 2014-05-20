@@ -26,6 +26,14 @@ footer {
     position: absolute;
 }
 
+
+
+.profile-box
+{
+    width:100%;
+    height:320px;
+}
+
 .main-text
 {
     position: absolute;

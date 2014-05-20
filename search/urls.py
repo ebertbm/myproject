@@ -21,4 +21,5 @@ urlpatterns = patterns('',
 	url(r'^deal/', include('deals.urls', namespace="deals")),
 	url(r'^country/', include('countries.urls', namespace="countries")),
 	
+	
 )  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

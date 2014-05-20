@@ -1,0 +1,18 @@
+{% block content %}
+
+<br>
+<address>
+	<strong>Contact Information:</strong><br>
+	{{ institution.address }}<br>
+	{{ institution.location }}<br>
+	<abbr title="Phone">Phone:</abbr> {{ institution.phone }}
+</address>
+
+<address>
+	<a href="mailto:{{ institution.get_contact_email }}">{{ institution.contact_email }}</a>
+</address>
+
+
+<p>{{ institution.content }}</p>
+
+{% endblock %}
